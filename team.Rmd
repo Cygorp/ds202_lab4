@@ -68,16 +68,68 @@ str(defense)
 
 ```{r,echo=FALSE,results='hide'}
 offense <- read_excel('cyclonesFootball2018.xlsx', sheet='Offensive')
+str(offense)
 bio <- read_excel('cyclonesFootball2018.xlsx', sheet='Biography')
+str(bio)
 ```
 
 ## Part one: Cleaning data
 The three Excel sheets are loaded into R but they are not useful to us before some cleaning. Manipulate the three imported data frames, so that the cleaned data satisfy the following:
 
 1. The player names and opponent names are factors.
+```{r}
+library(dplyr)
+###defense <- mutate_at(defense,vars(defense$Name, defense$Opponent_Opponent), as.factor)
+
+###offense <- mutate(offense$Name, as.factor(offense$Name))
+
+
+### makes player names and opponent columns factors for the defense df
+defense<- lapply(defense["Name","Opponent_Opponent""],is.factor)
+str(defense)
+
+###
+offense<- lapply(offense["Name","Opponent_Opponent"],factor)
+str(defense)
+```
 2. All offensive and defensive statistics are numerical. The `Weight` column in Biography is also numeric. (Hint: look at `?mutate_at` if you want to save writing some code). 
-3. Separate the `Height` column into two columns. Make sure the newly created columns are numeric. Then create one column that represents `Height` (Hint: Use a unit that works well). Drop any irrelavant columns from this process. 
+``` {r}
+?mutate_at
+### makes stats in the offensive df numeric
+head(offense)
+offense[is.na(offense)] <- 0
+offense <- mutate_at(offense, vars(3:12),as.numeric)
+str(offense)
+
+### makes stats in the defensive df numeric
+defense[is.na(defense)] <- 0
+defense<- mutate_at(defense, vars(3:9),as.numeric)
+str(defense)
+```
+3. Separate the `Height` column into two columns. Make sure the newly created columns are numeric. Then create one column that represents `Height` (Hint: Use a unit that works well). Drop any irrelavant columns from this process.
+``` {r}
+library(tidyr)
+?separate
+### splits Height column
+bio <- separate(data= bio, col = Height, into = c("Feet", "Inches"), sep = "-")
+str(bio)
+### makes new split height columns numeric
+bio<- mutate_at(bio, vars(3:4),as.numeric)
+str(bio)
+
+### makes another Height column???
+
+
+```
 4. By cleaning the three data frames in R, at the end of this step you should have the following three clean data frames: `defClean`, `offClean`, and `bioClean`. Print the structures of these data frames. **Make sure your data types make sense for each variable.**
+``` {r}
+### names cleaned data frames
+
+
+### prints clean data frames and checks data types
+
+
+```
 
 ## Part two: Tidying (A)
 For the following questions, work on the cleaned data frames `defClean`, `offClean`, and `bioClean`.
