@@ -127,11 +127,6 @@ str(bio)
 ```
 4. By cleaning the three data frames in R, at the end of this step you should have the following three clean data frames: `defClean`, `offClean`, and `bioClean`. Print the structures of these data frames. **Make sure your data types make sense for each variable.**
 ``` {r}
-### names cleaned data frames
-defClean <- defense
-offClean <- offense
-bioClean <- bio
-
 ### prints clean data frames and checks data types
 str(defClean)
 str(offClean)
