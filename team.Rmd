@@ -118,16 +118,21 @@ bio<- mutate_at(bio, vars(3:4),as.numeric)
 str(bio)
 
 ### makes another Height column???
-
-
+bio["Height"] <- paste(bio$Feet, bio$Inches)
+bio<- mutate_at(bio,vars("Height"),as.numeric)
+str(bio)
 ```
 4. By cleaning the three data frames in R, at the end of this step you should have the following three clean data frames: `defClean`, `offClean`, and `bioClean`. Print the structures of these data frames. **Make sure your data types make sense for each variable.**
 ``` {r}
 ### names cleaned data frames
-
+defClean <- defense
+offClean <- offense
+bioClean <- bio
 
 ### prints clean data frames and checks data types
-
+str(defClean)
+str(offClean)
+str(bioClean)
 
 ```
 
@@ -146,8 +151,15 @@ For the following questions, work on the cleaned data frames `defClean`, `offCle
 Now let's turn our attention to the player biography `bioClean`.
 
 1. Separate the `Hometown` column into two columns, namely the city and the state. Print the first few rows of these two columns. (Hint: look at the `sep=` argument of `separate`)
+``` {r}
+### separtes the Hometown column into City and State
+bioClean <- separate(data= bioClean, col = Hometown, into = c("City", "State"), sep = ",")
+head(bioClean)
+```
 2. How many players are there from each state?
-
+``` {r}
+bioClean %>% group_by(bioClean$State) %>% tally()
+```
 
 ## Part three: Joining data frames
 
