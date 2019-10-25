@@ -198,10 +198,21 @@ ggplot(offensePlayers, aes(Weight, Receiving_YDS)) + geom_point() + geom_smooth(
 There seems to be an ideal height for receiving yards and it peaks around 225.
 
 3. Explore more. Raise a question that can be answered only by looking at two or more data frames. Then answer that question.
+Is there a relationship between the what year an offensive player is in school and games with rushing yards? Assuming that a player that is in a higher class has more experience, is it true that players with more experience on the team have more games with rushing yards?
+``` {r}
+str(offensePlayers)
+ggplot(offensePlayers, aes(Class, Rushing_YDS)) + geom_point() + ggtitle("Rushing Yards vs. Class") + theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```
+Juniors and Freshman have the most amount of games with rushing yards so there doesn't seem to much of a relationship between experience and games with rushing yards. 
 
 ## Tips
 - Agree on a method to clean the dataset with your teammate. Both teammates can then work on the same cleaned version for downstream analysis.
 - Start early to allow more time to collaborate.
 - Plan ahead to prevent merge conflict: Teammates should modify the `team.Rmd` file in turn, rather than concurrently. 
+
+Adam VanGorp
+Mitch Kazin
+
+github: https://github.com/Cygorp/ds202_lab4.git
 
 
